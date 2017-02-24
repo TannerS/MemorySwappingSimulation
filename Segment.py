@@ -1,44 +1,50 @@
+# http://stackoverflow.com/questions/18989362/python-property-setting-from-list-causes-maximum-recursion-depth-exceeded
+
 class Segment:
 
     def __init__(self, pid, start, length, next):
         self.pid = pid
         self.start = start
         self.length = length
-        # next will be of type Segment
         self.next = next
 
     @property
     def pid(self):
-        return self.pid
+        return self._pid
 
     @pid.setter
     def pid(self, value):
-        self.pid = value
+        self._pid = value
 
     @property
     def start(self):
-        return self.start
+        return self._start
 
     @start.setter
     def start(self, value):
-        self.start = value
+        self._start = value
 
     @property
     def length(self):
-        return self.length
+        return self._length
 
     @length.setter
     def length(self, value):
-        self.length = value
+        self._length = value
 
     @property
     def next(self):
-        return self.next
+        return self._next
 
     @next.setter
     def next(self, value):
-        self.next = value
+        self._next = value
 
     # https://pyformat.info/
     def __repr__(self):
         return '{} {} {}'.format(self.pid, self.start, self.length)
+
+
+
+
+

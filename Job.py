@@ -1,4 +1,4 @@
-class Segment:
+class Job:
 
     def __init__(self, pid, size):
         self.pid = pid
@@ -6,19 +6,19 @@ class Segment:
 
     @property
     def pid(self):
-        return self.pid
+        return self._pid
 
     @pid.setter
     def pid(self, value):
-        self.pid = value
+        self._pid = value
 
     @property
     def size(self):
-        return self.size
+        return self._size
 
     @size.setter
     def size(self, value):
-        self.size = value
+        self._size = value
 
     # https://pyformat.info/
     def __repr__(self):
