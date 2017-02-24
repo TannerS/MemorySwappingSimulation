@@ -186,4 +186,42 @@ class Swapping:
             self.pid += 1
 
 
-
+    def deallocate(self, pid):
+        if pid in self.jobs:
+            # hold prev value
+            prev = self.segments
+            # hold one segment above the prev
+            segment = self.segments.next
+            # loop all segments in linkedlist
+            while segment is not None:
+                # make sure segment is the segment we will delete
+                if int(segment.pid) == pid:
+                    # if prev exist
+                    if prev is not None:
+                        # if the prev segment is a hole
+                        if int(prev.pid) == 0:
+                            # the prev segment's hole now is its own size plus the len of the segment in front of it
+                            prev.length = prev.length + segment.length
+                            # make sure you skip over the segment that was deleted
+                            prev.next = segment.next
+                            # delete that segment
+                            del segment
+                            break
+                    # if the next segment is not null
+                    if segment.next is not None:
+                        # if next segment is a hole
+                        if int(segment.next.pid) == 0:
+                            # set current segment as the new hole
+                            segment.pid = 0
+                            # start stays the same
+                            # segment.start =
+                            # get current len and add it to next segments len
+                            segment.length += segment.next.length
+                            # make sure to set the next segment to be what after the one being deallocated
+                            temp_reference = segment.next
+                            segment.next = segment.next.next
+                            del temp_reference
+                            break
+                # get next reference and prev reference
+                prev = segment
+                segment = segment.next

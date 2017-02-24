@@ -33,14 +33,17 @@ def main():
             elif response[0] == "bf":
                 if len(response) == 2:
                     pid = response[1]
+                    swapper.bestFit(pid)
 
             elif response[0] == "wf":
                 if len(response) == 2:
                     pid = response[1]
+                    swapper.worstFit(pid)
 
             elif response[0] == "de":
                 if len(response) == 2:
                     pid = response[1]
+                    swapper.deallocate(pid)
 
             elif response[0] == "quit":
                 break
