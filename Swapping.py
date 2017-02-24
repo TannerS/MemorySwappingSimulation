@@ -7,7 +7,6 @@ class Swapping:
         self.size = 100
         self.segments = Segment(0, 0, 100, None)
         self.jobs = {}
-        self.pid = 1
         self.next_fit_marker = self.segments
 
     def add(self, pid, size):
@@ -56,13 +55,24 @@ class Swapping:
                         segment.length = int(job.size)
                         # set next segment to be the hole but with the new changes to its space
                         # check if there is even room for another hole at end or not
+                        # if (size - segment.length) == 0:
+                        #     segment.next = None
+                        # else:
+                        #     segment.next = Segment(0, (segment.start + segment.length), (size - segment.length), None)
+                        # self.next_fit_marker = segment.next
+                        # self.pid += 1
+                        # # self.segments = temp_segment
+                        # break
                         if (size - segment.length) == 0:
-                            segment.next = None
+                            if(segment.next is not None):
+                                temp_seg = segment.next.next
+                            else:
+                                temp_seg = segment.next
+                            segment.next = temp_seg
+                            print("DEBUG 6")
                         else:
-                            segment.next = Segment(0, (segment.start + segment.length), (size - segment.length), None)
-                        self.next_fit_marker = segment.next
-                        self.pid += 1
-                        # self.segments = temp_segment
+                            temp_seg = segment.next
+                            segment.next = Segment(0, (segment.start + segment.length), (size - segment.length), temp_seg)
                         break
                 segment = segment.next
 
@@ -80,7 +90,8 @@ class Swapping:
                         #save current hole size for later use
                         size = segment.length
                         # get current segment, change the pid to act as if new segment was added
-                        segment.pid = self.pid
+                        # segment.pid = self.pid
+                        segment.pid =pid
                         # get current segment, change the start to act as if new segment was added
                         # in this case, start can stay the same
                         # segment.start =
@@ -90,13 +101,15 @@ class Swapping:
                         # set next segment to be the hole but with the new changes to its space
                         # check if there is even room for another hole at end or not
                         if (size - segment.length) == 0:
-                            segment.next = None
+                            if(segment.next is not None):
+                                temp_seg = segment.next.next
+                            else:
+                                temp_seg = segment.next
+                            segment.next = temp_seg
+                            print("DEBUG 6")
                         else:
-                            segment.next = Segment(0, (segment.start + segment.length), (size - segment.length), None)
-
-                        self.next_fit_marker = segment.next
-                        self.pid += 1
-                        # self.segments = temp_segment
+                            temp_seg = segment.next
+                            segment.next = Segment(0, (segment.start + segment.length), (size - segment.length), temp_seg)
                         break
                 segment = segment.next
 
@@ -136,11 +149,26 @@ class Swapping:
             segment_ref.length = int(job.size)
             # set next segment to be the hole but with the new changes to its space
             # check if there is even room for another hole at end or not
+
+            # if (size - segment_ref.length) == 0:
+            #     segment_ref.next = None
+            # else:
+            #     segment_ref.next = Segment(0, (segment_ref.start + segment_ref.length), (size - segment_ref.length), None)
+
             if (size - segment_ref.length) == 0:
-                segment_ref.next = None
+                if(segment_ref.next is not None):
+                    temp_seg = segment_ref.next.next
+                else:
+                    temp_seg = segment_ref.next
+                segment_ref.next = temp_seg
+                print("DEBUG 6")
             else:
-                segment_ref.next = Segment(0, (segment_ref.start + segment_ref.length), (size - segment_ref.length), None)
-            self.pid += 1
+                temp_seg = segment_ref.next
+                segment_ref.next = Segment(0, (segment_ref.start + segment_ref.length), (size - segment_ref.length), temp_seg)
+            self.next_fit_marker = segment_ref.next
+
+
+
 
 
     def worstFit(self, pid):
@@ -179,12 +207,23 @@ class Swapping:
             segment_ref.length = int(job.size)
             # set next segment to be the hole but with the new changes to its space
             # check if there is even room for another hole at end or not
-            if (size - segment_ref.length) == 0:
-                segment_ref.next = None
-            else:
-                segment_ref.next = Segment(0, (segment_ref.start + segment_ref.length), (size - segment_ref.length), None)
-            self.pid += 1
 
+            # if (size - segment_ref.length) == 0:
+            #     segment_ref.next = None
+            # else:
+            #     segment_ref.next = Segment(0, (segment_ref.start + segment_ref.length), (size - segment_ref.length), None)
+
+            if (size - segment_ref.length) == 0:
+                if(segment_ref.next is not None):
+                    temp_seg = segment_ref.next.next
+                else:
+                    temp_seg = segment_ref.next
+                segment_ref.next = temp_seg
+            else:
+                temp_seg = segment_ref.next
+                segment_ref.next = Segment(0, (segment_ref.start + segment_ref.length), (size - segment_ref.length), temp_seg)
+
+            #
 
     def deallocate(self, pid):
         if pid in self.jobs:
@@ -192,14 +231,19 @@ class Swapping:
             prev = self.segments
             # hold one segment above the prev
             segment = self.segments.next
+            print("debug")
             # loop all segments in linkedlist
             while segment is not None:
+                print("debug1 : " + str(segment.pid))
                 # make sure segment is the segment we will delete
-                if int(segment.pid) == pid:
+                if int(segment.pid) == int(pid):
+                    print("debug2")
                     # if prev exist
                     if prev is not None:
+                        print("debug3")
                         # if the prev segment is a hole
                         if int(prev.pid) == 0:
+                            print("debug4")
                             # the prev segment's hole now is its own size plus the len of the segment in front of it
                             prev.length = prev.length + segment.length
                             # make sure you skip over the segment that was deleted
@@ -209,8 +253,10 @@ class Swapping:
                             break
                     # if the next segment is not null
                     if segment.next is not None:
+                        print("debug 5")
                         # if next segment is a hole
                         if int(segment.next.pid) == 0:
+                            print("debug 6 ")
                             # set current segment as the new hole
                             segment.pid = 0
                             # start stays the same
@@ -222,6 +268,29 @@ class Swapping:
                             segment.next = segment.next.next
                             del temp_reference
                             break
+                #in special case the first element is being deleted since the loop starts at the first element not the 0 element
+                elif int(prev.pid) == int(pid):
+                    print("debug 5.1")
+                    # if next segment is a hole
+                    if int(segment.pid) == 0:
+                        print("debug 6.1 ")
+                        # set current segment as the new hole
+                        prev.pid = 0
+                        # start stays the same
+                        # segment.start =
+                        # get current len and add it to next segments len
+                        prev.length += prev.next.length
+                        # make sure to set the next segment to be what after the one being deallocated
+                        temp_reference = prev.next
+                        prev.next = prev.next.next
+                        del temp_reference
+                        break
+                    # if there is no hole to the left or the right
+                    print("debug 6.1 ")
+                    # set current segment as the new hole
+                    prev.pid = 0
+                    break
                 # get next reference and prev reference
                 prev = segment
                 segment = segment.next
+                print("debug 7 ")

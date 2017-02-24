@@ -3,6 +3,44 @@ from Swapping import Swapping
 def main():
     swapper = Swapping()
 
+
+    # debug
+    # swapper.listJobs()
+    # swapper.add(1, 5)
+    # swapper.listSegments()
+    # swapper.firstFit(1)
+    # swapper.listSegments()
+    # swapper.add(2, 17)
+    # swapper.firstFit(2)
+    # swapper.listSegments()
+    # swapper.deallocate(2)
+    # swapper.listSegments()
+    # swapper.firstFit(2)
+    # swapper.listSegments()
+    # swapper.deallocate(1)
+    # swapper.listSegments()
+    # swapper.add(3, 7)
+    # swapper.firstFit(3)
+    # swapper.listSegments()
+    # swapper.add(4, 4)
+    # swapper.listSegments()
+    # swapper.firstFit(4)
+    # swapper.listSegments()
+    # swapper.deallocate(2)
+    # swapper.listSegments()
+
+
+    swapper.add(1, 5)
+    swapper.add(2, 4)
+    swapper.add(3, 3)
+    swapper.add(4, 2)
+    swapper.add(5, 1)
+
+
+
+
+
+
     while True:
         response = input("Enter a command: ")
         response = response.strip().split()
