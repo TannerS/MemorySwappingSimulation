@@ -28,6 +28,7 @@ def main():
             elif response[0] == "nf":
                 if len(response) == 2:
                     pid = response[1]
+                    swapper.nextFit(pid)
 
             elif response[0] == "bf":
                 if len(response) == 2:
