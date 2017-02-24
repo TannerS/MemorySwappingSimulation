@@ -23,6 +23,7 @@ def main():
             elif response[0] == "ff":
                 if len(response) == 2:
                     pid = response[1]
+                    swapper.firstFit(pid)
 
             elif response[0] == "nf":
                 if len(response) == 2:

@@ -42,7 +42,7 @@ class Segment:
 
     # https://pyformat.info/
     def __repr__(self):
-        return '{} {} {}'.format(self.pid, self.start, self.length)
+        return '({} {} {})'.format(self.pid, self.start, self.length)
 
 
 
