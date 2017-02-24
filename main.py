@@ -29,13 +29,24 @@ def main():
     # swapper.deallocate(2)
     # swapper.listSegments()
 
-
-    swapper.add(1, 5)
-    swapper.add(2, 4)
-    swapper.add(3, 3)
-    swapper.add(4, 2)
-    swapper.add(5, 1)
-
+    #
+    # swapper.add(1, 5)
+    # swapper.add(2, 4)
+    # swapper.add(3, 3)
+    # swapper.add(4, 2)
+    # swapper.add(5, 1)
+    # swapper.bestFit(1)
+    # swapper.bestFit(2)
+    # swapper.bestFit(3)
+    # swapper.bestFit(4)
+    # swapper.bestFit(5)
+    # swapper.listSegments()
+    # swapper.deallocate(5)
+    # swapper.deallocate(3)
+    # swapper.deallocate(1)
+    # swapper.listSegments()
+    # swapper.bestFit(5)
+    # swapper.listSegments()
 
 
 

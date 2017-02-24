@@ -46,7 +46,7 @@ class Swapping:
                         #save current hole size for later use
                         size = segment.length
                         # get current segment, change the pid to act as if new segment was added
-                        segment.pid = self.pid
+                        segment.pid = pid
                         # get current segment, change the start to act as if new segment was added
                         # in this case, start can stay the same
                         # segment.start =
@@ -91,7 +91,7 @@ class Swapping:
                         size = segment.length
                         # get current segment, change the pid to act as if new segment was added
                         # segment.pid = self.pid
-                        segment.pid =pid
+                        segment.pid = pid
                         # get current segment, change the start to act as if new segment was added
                         # in this case, start can stay the same
                         # segment.start =
@@ -140,7 +140,7 @@ class Swapping:
             #save current hole size for later use
             size = segment_ref.length
             # get current segment, change the pid to act as if new segment was added
-            segment_ref.pid = self.pid
+            segment_ref.pid = pid
             # get current segment, change the start to act as if new segment was added
             # in this case, start can stay the same
             # segment.start =
@@ -166,10 +166,6 @@ class Swapping:
                 temp_seg = segment_ref.next
                 segment_ref.next = Segment(0, (segment_ref.start + segment_ref.length), (size - segment_ref.length), temp_seg)
             self.next_fit_marker = segment_ref.next
-
-
-
-
 
     def worstFit(self, pid):
         if pid in self.jobs:
@@ -198,7 +194,7 @@ class Swapping:
             #save current hole size for later use
             size = segment_ref.length
             # get current segment, change the pid to act as if new segment was added
-            segment_ref.pid = self.pid
+            segment_ref.pid = pid
             # get current segment, change the start to act as if new segment was added
             # in this case, start can stay the same
             # segment.start =
